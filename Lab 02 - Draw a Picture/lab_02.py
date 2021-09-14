@@ -40,9 +40,6 @@ arcade.draw_arc_filled(300, 250, 350, 350, arcade.color.ORANGE_RED, 0, 180)
 # Draw the sun
 arcade.draw_arc_filled(300, 250, 200, 200, arcade.color.SAE, 0, 180)
 
-# Draw Buildings and windows
-arcade.draw_lrtb_rectangle_filled(0, 50, 350, 250, arcade.color.BLACK)
-
 
 # Finish Drawing
 arcade.finish_render()
