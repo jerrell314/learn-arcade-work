@@ -1,9 +1,6 @@
-print("Most exciting class ever!!!!")
-print("Professor Craven said \"Hi\"!")
-print("What does \ndo? It\nis weird")
-print("""Holy cow!
-The professor
-has
-gone
-crazy!
- """)
+def f(x):
+    x += 10
+
+x = 1
+f(x)
+print(x)
