@@ -1,6 +1,8 @@
-def f(x):
-    x += 10
+import random
 
-x = 1
-f(x)
-print(x)
+
+my_number = random.randrange(5)
+if my_number == 0:
+    print("Dragon!")
+else:
+    print("No dragon.")
