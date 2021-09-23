@@ -8,28 +8,33 @@ SCREEN_HEIGHT = 600
 
 
 def draw_grass():
-    """ Draw grass with STL design"""
+    """ Draw grass"""
     arcade.draw_lrtb_rectangle_filled(0, SCREEN_WIDTH, SCREEN_HEIGHT / 2.4, 0, arcade.color.APPLE_GREEN)
+
+
+def draw_st_louis_logo(x, y):
+    """Draw a point at x, y fo reference"""
+    arcade.draw_point(x, y, arcade.color.RED, 5)
+    """Draw STL logo"""
     arcade.draw_text("S T L",
-                     150, 100,
+                     x, y,
                      arcade.color.GREEN_YELLOW, 100)
 
 
-# def draw_sun_set(x,y):
-#     """ Draw sun set"""
-#     arcade.draw_lrtb_rectangle_filled(0, 600, 550 + x, 450 + y, arcade.color.ORANGE_PEEL)
-#     arcade.draw_lrtb_rectangle_filled(0, 600, 450 + x, 400 + y, arcade.color.DARK_ORANGE)
-#     arcade.draw_lrtb_rectangle_filled(0, 600, 400 + x, 340 + y, arcade.color.PUMPKIN)
-#     arcade.draw_lrtb_rectangle_filled(0, 600, 340 + x, 150 + y, arcade.color.ORANGE_RED)
+def draw_sun_set():
+    """ Draw sun set"""
+    arcade.draw_lrtb_rectangle_filled(0, 600, 550, 450, arcade.color.ORANGE_PEEL)
+    arcade.draw_lrtb_rectangle_filled(0, 600, 450, 400, arcade.color.DARK_ORANGE)
+    arcade.draw_lrtb_rectangle_filled(0, 600, 400, 340, arcade.color.PUMPKIN)
+    arcade.draw_lrtb_rectangle_filled(0, 600, 340, 150, arcade.color.ORANGE_RED)
 
-
-# def draw_arch(x,y):
-#     """ Draw arch with sunset"""
-#     arcade.draw_arc_filled(300, 250, 400 + x, 600 + y, arcade.color.DARK_GRAY, 0, 180)
-#     arcade.draw_arc_filled(300, 250, 350 + x, 550 + y, arcade.color.ORANGE_PEEL, 0, 180)
-#     arcade.draw_arc_filled(300, 250, 350 + x, 450 + y, arcade.color.DARK_ORANGE, 0, 180)
-#     arcade.draw_arc_filled(300, 250, 350 + x, 400 + y, arcade.color.PUMPKIN, 0, 180)
-#     arcade.draw_arc_filled(300, 250, 350 + x, 350 + y, arcade.color.ORANGE_RED, 0, 180)
+def draw_arch():
+    """ Draw arch with sunset"""
+    arcade.draw_arc_filled(300, 250, 400, 600, arcade.color.DARK_GRAY, 0, 180)
+    arcade.draw_arc_filled(300, 250, 350, 550, arcade.color.ORANGE_PEEL, 0, 180)
+    arcade.draw_arc_filled(300, 250, 350, 450, arcade.color.DARK_ORANGE, 0, 180)
+    arcade.draw_arc_filled(300, 250, 350, 400, arcade.color.PUMPKIN, 0, 180)
+    arcade.draw_arc_filled(300, 250, 350, 350, arcade.color.ORANGE_RED, 0, 180)
 
 
 def draw_buildings():
@@ -41,32 +46,43 @@ def draw_buildings():
 
 
 def draw_windows(x, y):
+    """Draw a point at x, y fo reference"""
+    arcade.draw_point(x, y, arcade.color.RED, 5)
     """ Draw windows"""
     arcade.draw_rectangle_filled(x, y, 10, 10, arcade.color.WHITE)
     arcade.draw_rectangle_filled(x, y - 20, 10, 10, arcade.color.WHITE)
 
 
-def draw_sun(x,y):
-    arcade.draw_circle_filled(300 - x, 400 - y, 50, arcade.color.SAE)
-
+def draw_sun(x, y):
+    """Draw a point at x, y fo reference"""
+    arcade.draw_point(x, y, arcade.color.BLUE, 5)
+    "Draw sun"
+    """Rise and lower sun with sunset"""
+    arcade.draw_circle_filled(x, y, 100, arcade.color.SAE)
 
 def main():
     arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, "Drawing with functions")
     arcade.set_background_color(arcade.color.ORANGE)
     arcade.start_render()
 
-    draw_sun_set(30, 30)
+    draw_sun_set()
 
-    draw_arch(100, 70)
+    draw_arch()
 
     draw_buildings()
 
-    draw_sun(50, 60)
+    draw_sun(300, 400)
 
     draw_grass()
+
+    draw_st_louis_logo(100, 100)
+
     draw_windows(10, 380)
-    draw_windows(340, 50)
+    draw_windows(30, 380)
     draw_windows(590, 380)
+    draw_windows(570, 380)
+    draw_windows(540, 340)
+    draw_windows(70, 340)
 
     # Finish and run
     arcade.finish_render()
