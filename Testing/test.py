@@ -1,16 +1,1 @@
-<<<<<<< HEAD
-import random
 
-
-my_number = random.randrange(5)
-if my_number == 0:
-    print("Dragon!")
-else:
-    print("No dragon.")
-=======
-name = "mary"
-if name.lower() == "bob" or "sam":
-    print("Yes")
-else:
-    print("No")
->>>>>>> e5e999370fcda006fded0e4673afdbfb945363d9
