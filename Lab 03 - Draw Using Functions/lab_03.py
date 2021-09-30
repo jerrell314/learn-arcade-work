@@ -13,8 +13,6 @@ def draw_grass():
 
 
 def draw_st_louis_logo(x, y):
-    """Draw a point at x, y fo reference"""
-    arcade.draw_point(x, y, arcade.color.RED, 5)
     """Draw STL logo"""
     arcade.draw_text("S T L",
                      x, y,
@@ -46,16 +44,12 @@ def draw_buildings():
 
 
 def draw_windows(x, y):
-    """Draw a point at x, y fo reference"""
-    arcade.draw_point(x, y, arcade.color.RED, 5)
     """ Draw windows"""
     arcade.draw_rectangle_filled(x, y, 10, 10, arcade.color.WHITE)
     arcade.draw_rectangle_filled(x, y - 20, 10, 10, arcade.color.WHITE)
 
 
 def draw_sun(x, y):
-    """Draw a point at x, y fo reference"""
-    arcade.draw_point(x, y, arcade.color.BLUE, 5)
     "Draw sun"
     """Rise and lower sun with sunset"""
     arcade.draw_circle_filled(x, y, 100, arcade.color.SAE)
