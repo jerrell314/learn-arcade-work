@@ -15,7 +15,7 @@ def main():
     thirst = 0
     camel_tiredness = 0
     drinks_in_canteen = 3
-    distance_of_natives_behind = miles_traveled - 20
+    distance_of_natives_behind =  - 20
 
 
     done = False
@@ -43,6 +43,55 @@ def main():
             my_number = random.randrange(7, 14)
             print("camel is happy")
             print("Natives are", my_number, " miles behind you")
+
+        elif user_choice.lower() == "c":
+            ahead = random.randrange(10, 20)
+            fatigue = random.randrange(1, 3)
+            native_advancing = random.randrange(7, 14)
+            print("Ahead full speed. You have traveled", miles_traveled + ahead, "miles")
+            thirst + 1
+            camel_tiredness + fatigue
+            print("Natives are", distance_of_natives_behind + native_advancing, "behind you")
+
+
+        elif user_choice.lower() == "a":
+            thirst == 0
+            print("That was good!")
+            print(drinks_in_canteen - 1, "drinks from canteen left")
+        elif user_choice.lower() == "b":
+            print("Ahead moderate speed")
+            onward = random.randrange(5, 12)
+            camel_tiredness + 1
+            forward = distance_of_natives_behind + random.randrange(7, 14)
+            print("You have traveled", onward, "miles ")
+            print("Natives are", forward, "behind you")
+        if thirst >= 6:
+            print("You died of thirst")
+        elif thirst >= 4:
+            print("Your thirsty")
+            done = True
+        if camel_tiredness >= 8:
+            print("Your camel is dead and the natives have caught you")
+        elif camel_tiredness >= 5:
+            print("Your camel is getting tired")
+            done = True
+        if distance_of_natives_behind == miles_traveled:
+            print("Natives have caught you GAME OVER!!")
+        elif distance_of_natives_behind <= 15 - miles_traveled:
+            print("Natives are getting close")
+            done = True
+        if miles_traveled >= 200:
+            print("YOU WON")
+            done = True
+
+
+
+
+
+
+
+
+
 
 
 main()
