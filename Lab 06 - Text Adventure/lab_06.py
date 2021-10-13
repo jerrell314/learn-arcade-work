@@ -1,3 +1,6 @@
+import arcade
+
+
 class Room:
     def __init__(self, description, north, east, west, south):
         self.description = description
@@ -73,19 +76,44 @@ def main():
                 2)
     room_list.append(room)
     current_room = 0
-    print(room_list[current_room].description)
     done = False
     while not done:
         print()
+        print(room_list[current_room].description)
         user_input = input("Which door would you like to go through? ")
-        if user_input == "n":
+        if user_input.lower() == "n" or user_input.lower() == "north":
             next_room = room_list[current_room].north
-        if user_input == None:
-            print("You can't go that way.")
+            if next_room is None:
+                print("You can't go that way.")
+            else:
+                current_room = next_room
+
+        elif user_input.lower() == "e" or user_input.lower() == "east":
+            next_room = room_list[current_room].east
+            if next_room is None:
+                print("You can't go that way.")
+            else:
+                current_room = next_room
+
+        elif user_input.lower() == "s" or user_input.lower() == "south":
+            next_room = room_list[current_room].south
+            if next_room is None:
+                print("You can't go that way.")
+            else:
+                current_room = next_room
+
+        elif user_input.lower() == "w" or user_input.lower() == "west":
+            next_room = room_list[current_room].west
+            if next_room is None:
+                print("You can't go that way.")
+            else:
+                current_room = next_room
+        elif user_input.lower() == "q" or user_input.lower() == "quit":
+            print("Goodbye!")
+            done = True
+
         else:
-            current_room = next_room
-
-
+            print("Can't go that way choose another direction.")
 
 
 
