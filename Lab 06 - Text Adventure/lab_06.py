@@ -77,8 +77,17 @@ def main():
     done = False
     while not done:
         print()
-        user_input = input("What door would you like to go through? ")
-        return user_input
+        user_input = input("Which door would you like to go through? ")
+        if user_input == "n":
+            next_room = room_list[current_room].north
+        if user_input == None:
+            print("You can't go that way.")
+        else:
+            current_room = next_room
+
+
+
+
 
 
 
