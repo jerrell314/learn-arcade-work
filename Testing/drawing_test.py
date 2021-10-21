@@ -71,6 +71,13 @@ arcade.draw_text("Arbor Day - Plant a Tree!",
 #Finish drawing
 arcade.finish_render()
 
+
+def on_mouse_motion(self, x, y, dx, dy):
+    """ Called to update our objects.
+    Happens approximately 60 times per second."""
+    self.ball.position_x = x
+    self.ball.position_y = y
+
 #Keep the window up until someone closes it
 arcade.run()
 
