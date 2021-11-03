@@ -103,25 +103,29 @@ class MyGame(arcade.Window):
         self.krabby_patty_list.draw()
         output = f"Score: {self.score}"
         arcade.draw_text(output, 10, 20, arcade.color.WHITE, 14)
+        if len(self.krabby_patty_list) == 0:
+            game = "GAME OVER"
+            arcade.draw_text(game, 325, 300, arcade.color.WHITE, 20)
 
     def on_mouse_motion(self, x, y, dx, dy):
         self.player_sprite.center_x = x
         self.player_sprite.center_y = y
 
     def update(self, delta_time):
-        self.krabby_patty_list.update()
-        self.clarinet_list.update()
-        good_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.clarinet_list)
-        bad_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.krabby_patty_list)
+        if len(self.krabby_patty_list) > 0:
+            self.krabby_patty_list.update()
+            self.clarinet_list.update()
+            good_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.clarinet_list)
+            bad_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.krabby_patty_list)
 
-        for clarinet in good_hit_list:
-            clarinet.remove_from_sprite_lists()
-            clarinet.reset_pos()
-            self.score += 1
+            for clarinet in good_hit_list:
+                clarinet.remove_from_sprite_lists()
+                clarinet.reset_pos()
+                self.score += 1
 
-        for krabby_patty in bad_hit_list:
-            krabby_patty.remove_from_sprite_lists()
-            self.score -= 1
+            for krabby_patty in bad_hit_list:
+                krabby_patty.remove_from_sprite_lists()
+                self.score -= 1
 
 
 
