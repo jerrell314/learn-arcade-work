@@ -2,15 +2,15 @@
 import math
 import random
 import arcade
-
+import arcade
 # --- Constants ---
 SPRITE_SCALING_PLAYER = 0.2
 SPRITE_SCALING_CLARINET = 0.2
-SPRITE_SCALING_KRABBY_PATTY = 0.2
+SPRITE_SCALING_KRABBY_PATTY = 0.1
 CLARINET_COUNT = 50
-KRABBY_PATTY_COUNT = 25
-CLARINET_COLLECT = arcade.load_sound("coin4.wav")
-KRABBY_PATTY_COLLECT = arcade.load_sound("error1.wav")
+KRABBY_PATTY_COUNT = 70
+CLARINET_COLLECT = arcade.load_sound(":resources:sounds/coin4.wav")
+KRABBY_PATTY_COLLECT = arcade.load_sound(":resources:sounds/error1.wav")
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
@@ -104,16 +104,19 @@ class MyGame(arcade.Window):
         self.krabby_patty_list.draw()
         output = f"Score: {self.score}"
         arcade.draw_text(output, 10, 20, arcade.color.WHITE, 14)
-        if len(self.krabby_patty_list) == 0:
+        if len(self.clarinet_list) == 0:
             game = "GAME OVER"
             arcade.draw_text(game, 325, 300, arcade.color.WHITE, 20)
 
     def on_mouse_motion(self, x, y, dx, dy):
-        self.player_sprite.center_x = x
-        self.player_sprite.center_y = y
+        if len(self.clarinet_list) > 0:
+            self.player_sprite.center_x = x
+            self.player_sprite.center_y = y
+        elif len(self.clarinet_list) == 0:
+            self.set_mouse_visible(False)
 
     def update(self, delta_time):
-        if len(self.krabby_patty_list) > 0:
+        if len(self.clarinet_list) > 0:
             self.krabby_patty_list.update()
             self.clarinet_list.update()
             good_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.clarinet_list)
