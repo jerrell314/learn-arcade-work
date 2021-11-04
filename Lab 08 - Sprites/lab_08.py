@@ -9,7 +9,8 @@ SPRITE_SCALING_CLARINET = 0.2
 SPRITE_SCALING_KRABBY_PATTY = 0.2
 CLARINET_COUNT = 50
 KRABBY_PATTY_COUNT = 25
-
+CLARINET_COLLECT = arcade.load_sound("coin4.wav")
+KRABBY_PATTY_COLLECT = arcade.load_sound("error1.wav")
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
@@ -122,10 +123,13 @@ class MyGame(arcade.Window):
                 clarinet.remove_from_sprite_lists()
                 clarinet.reset_pos()
                 self.score += 1
+                arcade.play_sound(CLARINET_COLLECT)
+
 
             for krabby_patty in bad_hit_list:
                 krabby_patty.remove_from_sprite_lists()
                 self.score -= 1
+                arcade.play_sound(KRABBY_PATTY_COLLECT)
 
 
 
