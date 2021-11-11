@@ -11,10 +11,11 @@ import random
 import arcade
 
 SPRITE_SCALING = 0.5
-
+SPRITE_SCALING_COIN = 0.2
 DEFAULT_SCREEN_WIDTH = 800
 DEFAULT_SCREEN_HEIGHT = 600
 SCREEN_TITLE = "Sprite Move with Scrolling Screen Example"
+NUMBER_OF_COINS = 25
 
 # How many pixels to keep as a minimum margin between the character
 # and the edge of the screen.
@@ -42,9 +43,11 @@ class MyGame(arcade.Window):
 
         # Set up the player
         self.player_sprite = None
+        self.score = 0
 
         # Physics engine so we don't run into walls.
         self.physics_engine = None
+        self.coin_list = None
 
 
         # Create the cameras. One for the GUI, one for the sprites.
@@ -62,6 +65,7 @@ class MyGame(arcade.Window):
         # Sprite lists
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList()
+        self.coin_list = arcade.SpriteList()
 
         # Set up the player
         self.player_sprite = arcade.Sprite(":resources:images/animated_characters/female_person/femalePerson_idle.png",
@@ -70,7 +74,7 @@ class MyGame(arcade.Window):
         self.player_sprite.center_y = 512
         self.player_list.append(self.player_sprite)
 
-        # -- Set up several columns of walls
+        # card boundary
         for x in range(173, 1010, 64):
             wall = arcade.Sprite("cardClubsQ.png", SPRITE_SCALING)
             wall.center_x = x
@@ -91,10 +95,23 @@ class MyGame(arcade.Window):
             wall.center_x = 1005
             wall.center_y = y
             self.wall_list.append(wall)
+
         coordinate_list = [[400, 600],
                            [464, 600],
                            [528, 600],
                            [592, 600]]
+        # place bricks
+        for coordinate in coordinate_list:
+            wall = arcade.Sprite("brickGrey.png", SPRITE_SCALING)
+            wall.center_x = coordinate[0]
+            wall.center_y = coordinate[1]
+            self.wall_list.append(wall)
+
+        coordinate_list = [[400, 600],
+                           [464, 600],
+                           [528, 600],
+                           [592, 600]]
+        # place bricks
         for coordinate in coordinate_list:
             wall = arcade.Sprite("brickGrey.png", SPRITE_SCALING)
             wall.center_x = coordinate[0]
@@ -102,7 +119,7 @@ class MyGame(arcade.Window):
             self.wall_list.append(wall)
 
         wall = arcade.Sprite("brickGrey.png", SPRITE_SCALING)
-        wall.center_x = 500
+        wall.center_x = 700
         wall.center_y = 850
         self.wall_list.append(wall)
 
@@ -111,14 +128,52 @@ class MyGame(arcade.Window):
         wall.center_y = 455
         self.wall_list.append(wall)
 
-
-
-
+        wall = arcade.Sprite("brickGrey.png", SPRITE_SCALING)
+        wall.center_x = 950
+        wall.center_y = 855
+        self.wall_list.append(wall)
+        coordinate_list = [[588, 688],
+                           [716, 795],
+                           [668, 566],
+                           [741, 634]]
+        for coordinate in coordinate_list:
+            wall = arcade.Sprite("brickGrey.png", SPRITE_SCALING)
+            wall.center_x = coordinate[0]
+            wall.center_y = coordinate[1]
+            self.wall_list.append(wall)
+        coordinate_list = [[414, 416],
+                           [274, 703],
+                           [850, 532],
+                           [535, 512]]
+        for coordinate in coordinate_list:
+            wall = arcade.Sprite("brickGrey.png", SPRITE_SCALING)
+            wall.center_x = coordinate[0]
+            wall.center_y = coordinate[1]
+            self.wall_list.append(wall)
+        for x in range(230, 550, 64):
+            wall = arcade.Sprite("brickGrey.png", SPRITE_SCALING)
+            wall.center_x = x
+            wall.center_y = 850
+            self.wall_list.append(wall)
 
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.wall_list)
 
         # Set the background color
         arcade.set_background_color(arcade.color.AMAZON)
+        # Place coin
+        for coin in range(NUMBER_OF_COINS):
+            coin = arcade.Sprite(":resources:images/items/coinGold.png", SPRITE_SCALING_COIN)
+            coin_placed_successfully = False
+
+            while not coin_placed_successfully:
+                coin.center_x = random.randrange(DEFAULT_SCREEN_WIDTH)
+                coin.center_y = random.randrange(DEFAULT_SCREEN_HEIGHT)
+                wall_hit_list = arcade.check_for_collision_with_list(coin, self.wall_list)
+                coin_hit_list = arcade.check_for_collision_with_list(coin, self.coin_list)
+
+                if len(wall_hit_list) == 0 and len(coin_hit_list) == 0:
+                    coin_placed_successfully = True
+            self.coin_list.append(coin)
 
     def on_draw(self):
         """
@@ -137,6 +192,7 @@ class MyGame(arcade.Window):
         # Draw all the sprites.
         self.wall_list.draw()
         self.player_list.draw()
+        self.coin_list.draw()
 
 
         # Select the (unscrolled) camera for our GUI
@@ -150,9 +206,8 @@ class MyGame(arcade.Window):
                                      self.width,
                                      40,
                                      arcade.color.ALMOND)
-        text = f"Scroll value: ({self.camera_sprites.position[0]:5.1f}, " \
-               f"{self.camera_sprites.position[1]:5.1f})"
-        arcade.draw_text(text, 10, 10, arcade.color.BLACK_BEAN, 20)
+        output = f"Score: {self.score}"
+        arcade.draw_text(output, 10, 20, arcade.color.BLACK, 14)
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
@@ -190,6 +245,12 @@ class MyGame(arcade.Window):
         # Scroll the screen to the player
 
         self.scroll_to_player()
+        self.coin_list.update()
+        coin_hit_list = arcade.check_for_collision_with_list(self.player_sprite,
+                                                             self.coin_list)
+        for coin in coin_hit_list:
+            coin.remove_from_sprite_lists()
+            self.score += 1
 
 
 
