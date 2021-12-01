@@ -1,0 +1,33 @@
+Jerrell Carter
+12/1/21
+                    Quantitative Reasoning Reflection
+
+1.You would use an if statement, if you know what you want to choose between
+(like a=4, b=4 if a<b print an is less than be or if a>b print an is greater than b).
+You would use a for loop when you are trying to loop through a certain number of times
+and a while loop when you want to loop till a certain condition (such as game over).
+You would use classes when you need to group related data together (if you have
+character they need names, how fast they move, how they move, and also what they look
+like). You would use a function when you want to print text onto the screen (to print
+game over you would use the function print("Game Over")). You would use a list when
+you want to store a lot of data into something(my_list = [101, 20, 10, 50, 60]).
+
+
+
+2. Writing commits helps communicate what you are doing in the code to help whoever
+is looking at it know what you are doing. Making things descriptive like coin size
+instead of using x. Grouping code together helps it easier to read. Keeping track
+of your changes. Writing about how an algorithm works helps a lot to understand the code.
+
+3. You run the code than if it gives an error you go back to fix it. Looking at
+the errors give you a clue what the error is. Run something and test to make
+sure that it does what you want it to do. Like if you are programming a code for
+a math equation put in something that you know is the right answer to make sure
+it runs right.
+
+4. Sometimes when you use numbers it doesn't give the right information you want.
+Like how many fingers does an average person have would be less than 10 because
+some people has less than 10 fingers but that doesn't show that people actually have
+10 fingers. If we just replace human with algorithms than we would lose our morals
+and humanity because people would just try to get that number up instead of trying
+to be a good human.

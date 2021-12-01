@@ -1,0 +1,255 @@
+1. Write code to swap the values 25 and 40.
+
+my_list = [55, 41, 52, 68, 45, 27, 40, 25, 37, 26]
+
+def selection_sort(my_list):
+    temp = my_list[6]
+    my_list[6] = my_list[7]
+    my_list[7] = temp
+
+selection_sort(my_list)
+print(my_list)
+
+2. Write code to swap the values 2 and 27.
+
+my_list = [27, 32, 18,  2, 11, 57, 14, 38, 19, 91]
+
+def selection_sort(my_list):
+    temp = my_list[0]
+    my_list[0] = my_list[3]
+    my_list[3] = temp
+
+selection_sort(my_list)
+print(my_list)
+
+3. Why does the following code not work? Explain it, don't just list working code.
+
+my_list = [70, 32, 98, 88, 92, 36, 81, 83, 87, 66]
+temp = my_list[0]
+my_list[1] = my_list[0]
+my_list[0] = temp
+
+"The following code does not work because when you set my_list[1] to my_list[0] it is setting the value of
+my_list[0] to the value of my_list[1] which is correct but when you go to set the value of my_list[0] to the
+temp value it goes back to what my_list[0] originally is and not to my_list[1] which is what you want."
+
+4. Show how the following numbers can be sorted using the selection sort. Show the numbers after each iteration of the outer loop, similar to what is shown in the book. I am NOT looking for a copy of the code to do the sort. If you include any code for problems 4-7 you are doing it wrong.
+
+97   74    8   98   47   62   12   11    0   60
+    "O is the smallest, swap 0 to pos 0"
+    0   74    8   98   47   62   12   11    97   60
+
+    "8 is the next smallest, swap 8 to pos 1"
+    0   8   74   98   47   62   12   11    97   60
+
+    "11 is the next smallest, swap 11 to pos 2"
+    0   8   11   98   47   62   12   74    97   60
+
+    "12 is the next smallest, swap 12 to pos 3"
+    0   8   11   12   47   62   98   74    97   60
+
+    "47 is the next smallest, swap 47 to pos 4"
+    0   8   11   12   47   62   98   74    97   60
+
+    "60 is the next smallest, swap 60 to pos 5"
+    0   8   11   12   47   60   98   74    97   62
+
+    "62 is the next smallest, swap 62 to pos 6"
+    0   8   11   12   47   60   62   74    97   98
+
+    "74 is the next smallest, swap 74 to pos 7"
+    0   8   11   12   47   60   62   74    97   98
+
+    "97 is the next smallest, swap 97 to pos 8"
+    0   8   11   12   47   60   62   74    97   98
+
+    "98 is the next smallest, swap 98 to pos 9"
+    0   8   11   12   47   60   62   74    97   98
+
+5. Show how the following numbers can be sorted using the selection sort:
+
+74   92   18   47   40   58    0   36   29   25
+    "0 is the smallest, swap 0 to pos 0"
+    0   92   18   47   40   58    74   36   29   25
+
+    "18 is the next smallest, swap 18 to pos 1"
+    0   18   92   47   40   58    74   36   29   25
+
+    "25 is the next smallest, swap 25 to pos 2"
+    0   18   25   47   40   58    74   36   29   92
+
+    "29 is the next smallest, swap 29 to pos 3"
+    0   18   25   29   40   58    74   36   47   92
+
+    "36 is the next smallest, swap 36 to pos 4"
+    0   18   25   29   36   58    74   40   47   92
+
+    "40 is the next smallest, swap 40 to pos 5"
+    0   18   25   29   36   40    74   58   47   92
+
+    "47 is the next smallest, swap 47 to pos 6"
+    0   18   25   29   36   40    47   58   74   92
+
+    "58 is the next smallest, swap 58 to pos 7"
+    0   18   25   29   36   40    47   58   74   92
+
+    "74 is the next smallest, swap 74 to pos 8"
+    0   18   25   29   36   40    47   58   74   92
+
+    "92 is the next smallest, swap 92 to pos 9"
+    0   18   25   29   36   40    47   58   74   92
+
+6. Show how the following numbers can be sorted using the INSERTION sort. (Note: If you think the 0 gets immediately sorted into position, you are doing it wrong. Go back and re-read how this sort works.)
+
+74   92   18   47   40   58    0   36   29   25
+    18   74   92   47   40   58    0   36   29   25
+    18   47   74   92   40   58    0   36   29   25
+    18   40   47   74   92   58    0   36   29   25
+    18   40   47   58   74   92    0   36   29   25
+    0    18   40   47   58   74   92   36   29   25
+    0    18   36   40   47   58   74   92   29   25
+    0    18   29   36   40   47   58   74   92   25
+    0    18   25   29   36   40   47   58   74   92
+    0    18   25   29   36   40   47   58   74   92
+    0    18   25   29   36   40   47   58   74   92
+
+7. Show how the following numbers can be sorted using the insertion sort:
+
+37   11   14   50   24    7   17   88   99    9
+    11   37   14   50   24    7   17   88   99    9
+    11   14   37   50   24    7   17   88   99    9
+    11   14   24   37   50    7   17   88   99    9
+    7    11   14   24   37   50   17   88   99    9
+    7    11   14   24   37   50   17   88   99    9
+    7    11   14   17   24   37   50   88   99    9
+    7    11   14   17   24   37   50   88   99    9
+    7    11   14   17   24   37   50   88   99    9
+    7    11   14   17   24   37   50   88   99    9
+    7    9    11   14   17   24   37   50   88   99
+
+8. Explain what `min_pos` does in the selection sort.
+"The min_pos holds the position of the smallest number that will be checked when you are going through the list"
+
+9. Explain what `cur_pos` does in the selection sort.
+"The cur_pos holds the position that the loop is on that you are looping through."
+
+10. Explain what `scan_pos` does in the selection sort.
+"The scan_pos holds the position of the value that is smaller than the min_pos which it ends up replacing the min_pos.
+"
+11. Explain what `key_pos` and `key_value` are in the insertion sort.
+"Marks the boundary between the sorted and unsorted portions of the list."
+
+12. Explain `scan_pos` in the insertion sort.
+"The scan_pos is the variable left oof the key_pos.
+It goes down to the left to check to see if the scan_pos is less than the key_value."
+
+13. Look at the example sort program at the very end of this chapter:
+import random
+
+
+import random
+def selection_sort(my_list):
+    """ Sort a list using the selection sort """
+    inside_loop = 0
+    outside_loop = 0
+    # Loop through the entire array
+    for cur_pos in range(len(my_list)):
+        outside_loop += 1
+        # Find the position that has the smallest number
+        # Start with the current position
+        min_pos = cur_pos
+
+        # Scan left to right (end of the list)
+        for scan_pos in range(cur_pos + 1, len(my_list)):
+            inside_loop += 1
+            # Is this position smallest?
+            if my_list[scan_pos] < my_list[min_pos]:
+                # It is, mark this position as the smallest
+                min_pos = scan_pos
+
+        # Swap the two values
+        temp = my_list[min_pos]
+        my_list[min_pos] = my_list[cur_pos]
+        my_list[cur_pos] = temp
+    print(outside_loop)
+    print(inside_loop)
+
+
+def insertion_sort(my_list):
+    """ Sort a list using the insertion sort """
+    inside_loop = 0
+    outside_loop = 0
+
+    # Start at the second element (pos 1).
+    # Use this element to insert into the
+    # list.
+    for key_pos in range(1, len(my_list)):
+        outside_loop += 1
+        # Get the value of the element to insert
+        key_value = my_list[key_pos]
+
+        # Scan from right to the left (start of list)
+        scan_pos = key_pos - 1
+
+        # Loop each element, moving them up until
+        # we reach the position the
+        while (scan_pos >= 0) and (my_list[scan_pos] > key_value):
+            inside_loop += 1
+            my_list[scan_pos + 1] = my_list[scan_pos]
+            scan_pos = scan_pos - 1
+
+        # Everything's been moved out of the way, insert
+        # the key into the correct location
+        my_list[scan_pos + 1] = key_value
+    print(inside_loop)
+    print(outside_loop)
+
+
+# This will point out a list
+# For more information on the print formatting {:3}
+# see the chapter on print formatting.
+def print_list(my_list):
+    for item in my_list:
+        print(f"{item:3}", end="")
+    print()
+
+
+def main():
+    # Create two lists of the same random numbers
+    list_for_selection_sort = []
+    list_for_insertion_sort = []
+    list_size = 100
+    for i in range(list_size):
+        new_number = random.randrange(100)
+        list_for_selection_sort.append(new_number)
+        list_for_insertion_sort.append(new_number)
+
+    # Print the original list
+    print("Original List")
+    print_list(list_for_selection_sort)
+
+    # Use the selection sort and print the result
+    print("Selection Sort")
+    selection_sort(list_for_selection_sort)
+    print_list(list_for_selection_sort)
+
+    # Use the insertion sort and print the result
+    print("Insertion Sort")
+    insertion_sort(list_for_insertion_sort)
+    print_list(list_for_insertion_sort)
+
+
+main()
+
+Results:
+
+Original List
+ 86 98  2 25 91 28 90 32 89 39 63 96 15 64 51 90 93 43 70 98  1 99 29 21 36 96 17 53 38 54 30 32 36 55 41 13 30  4 96 67 42 35 81 94 18 62 31 37 63 36  6 50 12 29 70 40 20 75 65 99 38  3 17 21 86 15 21  2 63 89 76 14 54 39 19 68 49 48 32 98 37  7 65 89 14 66  7  2 56 76 62 38 88 80 91 42 49 83 45 76
+Selection Sort
+100
+4950
+  1  2  2  2  3  4  6  7  7 12 13 14 14 15 15 17 17 18 19 20 21 21 21 25 28 29 29 30 30 31 32 32 32 35 36 36 36 37 37 38 38 38 39 39 40 41 42 42 43 45 48 49 49 50 51 53 54 54 55 56 62 62 63 63 63 64 65 65 66 67 68 70 70 75 76 76 76 80 81 83 86 86 88 89 89 89 90 90 91 91 93 94 96 96 96 98 98 98 99 99
+Insertion Sort
+2492
+99
+  1  2  2  2  3  4  6  7  7 12 13 14 14 15 15 17 17 18 19 20 21 21 21 25 28 29 29 30 30 31 32 32 32 35 36 36 36 37 37 38 38 38 39 39 40 41 42 42 43 45 48 49 49 50 51 53 54 54 55 56 62 62 63 63 63 64 65 65 66 67 68 70 70 75 76 76 76 80 81 83 86 86 88 89 89 89 90 90 91 91 93 94 96 96 96 98 98 98 99 99
