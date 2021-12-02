@@ -12,12 +12,11 @@ like). You would use a function when you want to print text onto the screen (to 
 game over you would use the function print("Game Over")). You would use a list when
 you want to store a lot of data into something(my_list = [101, 20, 10, 50, 60]).
 
-
-
 2. Writing commits helps communicate what you are doing in the code to help whoever
 is looking at it know what you are doing. Making things descriptive like coin size
 instead of using x. Grouping code together helps it easier to read. Keeping track
 of your changes. Writing about how an algorithm works helps a lot to understand the code.
+
 
 3. You run the code than if it gives an error you go back to fix it. Looking at
 the errors give you a clue what the error is. Run something and test to make
