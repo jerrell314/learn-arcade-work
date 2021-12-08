@@ -3,10 +3,11 @@ import os
 
 SPRITE_SCALING = 0.3
 BRICK_SCALING = 0.5
-BALL_SCALING = 0.3
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
-SCREEN_TITLE = "Sprite Move with Walls Example"
+BALL_SCALING = 0.25
+PADDLE_SCALING = 0.4
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 700
+SCREEN_TITLE = "BRICK BREAKER 0.5"
 
 MOVEMENT_SPEED = 5
 BALL_SPEED = 5
@@ -38,9 +39,18 @@ class MyGame(arcade.Window):
         # Set up the player
         self.player_sprite = None
         self.physics_engine = None
+
+        # Set up ball
         self.ball_sprite = None
         self.set_mouse_visible(False)
+
+        # Set up the ball on paddle
         self.ball_on_paddle = True
+
+        # Set up score and lives
+        self.score = 0
+        self.lives = 4
+
 
     def setup(self):
         """ Set up the game and initialize the variables. """
@@ -52,16 +62,23 @@ class MyGame(arcade.Window):
 
         # Set up the player
         self.player_sprite = arcade.Sprite(":resources:gui_basic_assets/red_button_normal.png",
-                                           SPRITE_SCALING)
-        self.player_sprite.center_x = 400
-        self.player_sprite.center_y = 100
+                                           PADDLE_SCALING)
+        self.player_sprite.center_x = SCREEN_WIDTH / 2
+        self.player_sprite.center_y = SCREEN_HEIGHT - 600
         self.player_list.append(self.player_sprite)
+        self.score = 0
+        self.lives = 5
+
+        # Set the score and lives
+        self.score = 0
+        self.lives = 4
 
         # Image is from Brunswickbowling.com
-        self.ball_sprite = arcade.Sprite(":resources:images/pinball/pool_cue_ball.png", BALL_SCALING)
-        self.ball.center_x = self.player_sprite.center_x
-        self.ball.bottom = self.player_sprite.top
-        self.ball_list.append(self.ball_sprite)
+        ball = arcade.Sprite(":resources:images/pinball/pool_cue_ball.png", BALL_SCALING)
+        ball.center_x = self.player_sprite.center_x
+        ball.bottom = self.player_sprite.top
+        self.ball_list.append(ball)
+
 
 
 
@@ -69,18 +86,18 @@ class MyGame(arcade.Window):
         # -- Set up the walls
         # Create a row of boxes
 
-        for x in range(30, 790, 64):
+        for x in range(90, 1000, 64):
             wall = arcade.Sprite(":resources:images/tiles/boxCrate_double.png",
                                  BRICK_SCALING)
             wall.center_x = x
-            wall.center_y = 570
+            wall.center_y = 670
             self.wall_list.append(wall)
 
         # Create a column of boxes
         for y in range(30, 700, 64):
             wall = arcade.Sprite(":resources:images/tiles/boxCrate_double.png",
                                  BRICK_SCALING)
-            wall.center_x = 766
+            wall.center_x = 970
             wall.center_y = y
             self.wall_list.append(wall)
         for y in range(30, 700, 64):
@@ -109,13 +126,15 @@ class MyGame(arcade.Window):
         self.ball_list.draw()
         self.player_list.draw()
 
-
+        arcade.draw_text(f"Score: {self.score}", SCREEN_WIDTH - 990, SCREEN_HEIGHT - 40, arcade.color.WHITE, 14)
+        arcade.draw_text(f"Lives: {self.lives}", SCREEN_WIDTH - 90, SCREEN_HEIGHT - 40, arcade.color.WHITE, 14)
 
     def on_mouse_motion(self, x: float, y: float, dx: float, dy: float):
 
         self.player_sprite.center_x = x
-        if self.ball_on_paddle:
-            self.ball_list = self.player_sprite
+
+
+
 
 
     def on_mouse_press(self, x, y, button, modifiers):
@@ -131,6 +150,10 @@ class MyGame(arcade.Window):
         # example though.)
         self.physics_engine.update()
         self.ball_list.update()
+
+
+
+
 
 
 def main():
