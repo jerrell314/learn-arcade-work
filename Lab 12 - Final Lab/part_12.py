@@ -1,8 +1,10 @@
 import arcade
 import os
+import random
 
 SPRITE_SCALING = 0.3
-BRICK_SCALING = 0.5
+WALL_SCALING = 0.5
+BRICK_SCALING = 0.3
 BALL_SCALING = 0.25
 PADDLE_SCALING = 0.4
 SCREEN_WIDTH = 1000
@@ -35,6 +37,10 @@ class MyGame(arcade.Window):
         self.wall_list = None
         self.player_list = None
         self.ball_list = None
+        self.green_brick_list = None
+        self.diamonds_brick_list = None
+        self.clubs_brick_list = None
+        self.blue_brick_list = None
 
         # Set up the player
         self.player_sprite = None
@@ -51,6 +57,12 @@ class MyGame(arcade.Window):
         self.score = 0
         self.lives = 4
 
+        # Set up the Bricks
+        self.green_brick_sprite = None
+        self.diamonds_brick_sprite = None
+        self.clubs_brick_sprite = None
+        self.blue_brick_sprite = None
+
 
     def setup(self):
         """ Set up the game and initialize the variables. """
@@ -59,6 +71,10 @@ class MyGame(arcade.Window):
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList()
         self.ball_list = arcade.SpriteList()
+        self.green_brick_list = arcade.SpriteList()
+        self.diamonds_brick_list = arcade.SpriteList()
+        self.clubs_brick_list = arcade.SpriteList()
+        self.blue_brick_list = arcade.SpriteList()
 
         # Set up the player
         self.player_sprite = arcade.Sprite(":resources:gui_basic_assets/red_button_normal.png",
@@ -78,6 +94,7 @@ class MyGame(arcade.Window):
         ball.center_x = self.player_sprite.center_x
         ball.bottom = self.player_sprite.top
         self.ball_list.append(ball)
+        self.ball_sprite = ball
 
 
 
@@ -88,7 +105,7 @@ class MyGame(arcade.Window):
 
         for x in range(90, 1000, 64):
             wall = arcade.Sprite(":resources:images/tiles/boxCrate_double.png",
-                                 BRICK_SCALING)
+                                 WALL_SCALING)
             wall.center_x = x
             wall.center_y = 670
             self.wall_list.append(wall)
@@ -96,16 +113,44 @@ class MyGame(arcade.Window):
         # Create a column of boxes
         for y in range(30, 700, 64):
             wall = arcade.Sprite(":resources:images/tiles/boxCrate_double.png",
-                                 BRICK_SCALING)
+                                 WALL_SCALING)
             wall.center_x = 970
             wall.center_y = y
             self.wall_list.append(wall)
         for y in range(30, 700, 64):
             wall = arcade.Sprite(":resources:images/tiles/boxCrate_double.png",
-                                 BRICK_SCALING)
+                                 WALL_SCALING)
             wall.center_x = 30
             wall.center_y = y
             self.wall_list.append(wall)
+        for x in range(150, 900, 55):
+            brick = arcade.Sprite(":resources:images/cards/cardBack_green5.png",
+                                 BRICK_SCALING)
+            brick.center_x = x
+            brick.center_y = 550
+            brick.angle = 90
+            self.green_brick_list.append(brick)
+        for x in range(150, 900, 55):
+            brick = arcade.Sprite(":resources:images/cards/cardDiamonds9.png",
+                                  BRICK_SCALING)
+            brick.center_x = x
+            brick.center_y = 510
+            brick.angle = 90
+            self.diamonds_brick_list.append(brick)
+        for x in range(150, 900, 55):
+            brick = arcade.Sprite(":resources:images/cards/cardClubsK.png",
+                                  BRICK_SCALING)
+            brick.center_x = x
+            brick.center_y = 470
+            brick.angle = 90
+            self.clubs_brick_list.append(brick)
+        for x in range(150, 900, 55):
+            brick = arcade.Sprite(":resources:images/cards/cardBack_blue3.png",
+                                  BRICK_SCALING)
+            brick.center_x = x
+            brick.center_y = 440
+            brick.angle = 90
+            self.blue_brick_list.append(brick)
 
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
                                                          self.wall_list)
@@ -125,6 +170,10 @@ class MyGame(arcade.Window):
         self.wall_list.draw()
         self.ball_list.draw()
         self.player_list.draw()
+        self.green_brick_list.draw()
+        self.diamonds_brick_list.draw()
+        self.clubs_brick_list.draw()
+        self.blue_brick_list.draw()
 
         arcade.draw_text(f"Score: {self.score}", SCREEN_WIDTH - 990, SCREEN_HEIGHT - 40, arcade.color.WHITE, 14)
         arcade.draw_text(f"Lives: {self.lives}", SCREEN_WIDTH - 90, SCREEN_HEIGHT - 40, arcade.color.WHITE, 14)
@@ -134,11 +183,20 @@ class MyGame(arcade.Window):
         self.player_sprite.center_x = x
 
 
+        if self.ball_on_paddle:
+            self.ball_sprite.center_x = x
+            self.ball_sprite.bottom = self.player_sprite.top
+
+
+
 
 
 
     def on_mouse_press(self, x, y, button, modifiers):
-        pass
+        self.ball_on_paddle = False
+        self.ball_sprite.change_y = 5
+        self.ball_sprite.change_x = random.randrange(-3, 4)
+
 
 
 
@@ -150,6 +208,46 @@ class MyGame(arcade.Window):
         # example though.)
         self.physics_engine.update()
         self.ball_list.update()
+
+        self.green_brick_list.update()
+        self.ball_list.change_y = 0
+
+        green_brick_hit_list = arcade.check_for_collision_with_list(self.ball_sprite, self.green_brick_list)
+        for brick in green_brick_hit_list:
+            brick.remove_from_sprite_lists()
+            # self.ball_list.change_y *= -1
+            self.score += 1
+
+        self.diamonds_brick_list.update()
+
+        diamonds_brick_hit_list = arcade.check_for_collision_with_list(self.ball_sprite, self.diamonds_brick_list)
+        for brick in diamonds_brick_hit_list:
+            brick.remove_from_sprite_lists()
+            # self.ball_list.change_y *= -1
+            self.score += 1
+
+        self.clubs_brick_list.update()
+
+        clubs_brick_hit_list = arcade.check_for_collision_with_list(self.ball_sprite, self.clubs_brick_list)
+        for brick in clubs_brick_hit_list:
+            brick.remove_from_sprite_lists()
+            # self.ball_list.change_y *= -1
+            self.score += 1
+
+        self.blue_brick_list.update()
+
+        blue_brick_hit_list = arcade.check_for_collision_with_list(self.ball_sprite, self.blue_brick_list)
+        for brick in blue_brick_hit_list:
+            brick.remove_from_sprite_lists()
+            self.score += 1
+            self.ball_list.change_y *= -1
+
+        self.player_list.update()
+
+        player_hit_list = arcade.check_for_collision_with_list(self.ball_sprite, self.player_list)
+        for player in player_hit_list:
+            self.ball_list.change_y *= 1
+            self.score += 1
 
 
 
