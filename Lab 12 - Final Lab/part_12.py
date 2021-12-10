@@ -181,6 +181,11 @@ class MyGame(arcade.Window):
     def on_mouse_motion(self, x: float, y: float, dx: float, dy: float):
 
         self.player_sprite.center_x = x
+        self.player_sprite.center_y = SCREEN_HEIGHT - 600
+        if self.player_sprite.center_x < 100:
+            self.player_sprite.center_x = 100
+        if self.player_sprite.center_x < -10:
+            self.player_sprite.center_x = -10
 
 
         if self.ball_on_paddle:
@@ -206,48 +211,70 @@ class MyGame(arcade.Window):
 
         # Call update on all sprites (The sprites don't do much in this
         # example though.)
-        self.physics_engine.update()
+
         self.ball_list.update()
 
         self.green_brick_list.update()
         self.ball_list.change_y = 0
 
+
         green_brick_hit_list = arcade.check_for_collision_with_list(self.ball_sprite, self.green_brick_list)
+        if len(green_brick_hit_list):
+            self.ball_sprite.change_y *= -1
         for brick in green_brick_hit_list:
             brick.remove_from_sprite_lists()
-            # self.ball_list.change_y *= -1
             self.score += 1
 
         self.diamonds_brick_list.update()
 
         diamonds_brick_hit_list = arcade.check_for_collision_with_list(self.ball_sprite, self.diamonds_brick_list)
+        if len(diamonds_brick_hit_list):
+            self.ball_sprite.change_y *= -1
         for brick in diamonds_brick_hit_list:
             brick.remove_from_sprite_lists()
-            # self.ball_list.change_y *= -1
             self.score += 1
 
         self.clubs_brick_list.update()
 
         clubs_brick_hit_list = arcade.check_for_collision_with_list(self.ball_sprite, self.clubs_brick_list)
+        if len(clubs_brick_hit_list):
+            self.ball_sprite.change_y *= -1
         for brick in clubs_brick_hit_list:
             brick.remove_from_sprite_lists()
-            # self.ball_list.change_y *= -1
             self.score += 1
 
         self.blue_brick_list.update()
 
         blue_brick_hit_list = arcade.check_for_collision_with_list(self.ball_sprite, self.blue_brick_list)
+        if len(blue_brick_hit_list):
+            self.ball_sprite.change_y *= -1
+
         for brick in blue_brick_hit_list:
             brick.remove_from_sprite_lists()
             self.score += 1
-            self.ball_list.change_y *= -1
+
 
         self.player_list.update()
 
         player_hit_list = arcade.check_for_collision_with_list(self.ball_sprite, self.player_list)
         for player in player_hit_list:
-            self.ball_list.change_y *= 1
-            self.score += 1
+            if self.ball_sprite.change_y < 0:
+                self.ball_sprite.change_y *= -1
+
+
+
+        wall_hit_list = arcade.check_for_collision_with_list(self.ball_sprite, self.wall_list)
+        for wall in wall_hit_list:
+            self.ball_sprite.change_x *= -1
+            self.ball_sprite.change_y *= -1
+
+        if self.ball_sprite.center_y < 10:
+            self.ball_on_paddle = True
+            self.ball_sprite.change_y = 0
+            self.ball_sprite.change_x = 0
+            self.lives -= 1
+
+
 
 
 

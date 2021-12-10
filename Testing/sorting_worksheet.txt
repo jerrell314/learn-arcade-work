@@ -33,7 +33,8 @@ my_list[0] = temp
 my_list[0] to the value of my_list[1] which is correct but when you go to set the value of my_list[0] to the
 temp value it goes back to what my_list[0] originally is and not to my_list[1] which is what you want."
 
-4. Show how the following numbers can be sorted using the selection sort. Show the numbers after each iteration of the outer loop, similar to what is shown in the book. I am NOT looking for a copy of the code to do the sort. If you include any code for problems 4-7 you are doing it wrong.
+4. Show how the following numbers can be sorted using the selection sort. Show the numbers after each iteration of the outer loop, similar to what is shown in the book.
+I am NOT looking for a copy of the code to do the sort. If you include any code for problems 4-7 you are doing it wrong.
 
 97   74    8   98   47   62   12   11    0   60
     "O is the smallest, swap 0 to pos 0"
@@ -99,7 +100,8 @@ temp value it goes back to what my_list[0] originally is and not to my_list[1] w
     "92 is the next smallest, swap 92 to pos 9"
     0   18   25   29   36   40    47   58   74   92
 
-6. Show how the following numbers can be sorted using the INSERTION sort. (Note: If you think the 0 gets immediately sorted into position, you are doing it wrong. Go back and re-read how this sort works.)
+6. Show how the following numbers can be sorted using the INSERTION sort. (Note: If you think the 0 gets immediately sorted into position,
+you are doing it wrong. Go back and re-read how this sort works.)
 
 74   92   18   47   40   58    0   36   29   25
     18   74   92   47   40   58    0   36   29   25
