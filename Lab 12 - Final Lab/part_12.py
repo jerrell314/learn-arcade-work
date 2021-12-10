@@ -10,6 +10,7 @@ PADDLE_SCALING = 0.4
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 700
 SCREEN_TITLE = "BRICK BREAKER 0.5"
+SOUND = arcade.load_sound("hit4.wav")
 
 MOVEMENT_SPEED = 5
 BALL_SPEED = 5
@@ -184,8 +185,8 @@ class MyGame(arcade.Window):
         self.player_sprite.center_y = SCREEN_HEIGHT - 600
         if self.player_sprite.center_x < 100:
             self.player_sprite.center_x = 100
-        if self.player_sprite.center_x < -10:
-            self.player_sprite.center_x = -10
+        if self.player_sprite.center_x > 900:
+            self.player_sprite.center_x = 900
 
 
         if self.ball_on_paddle:
@@ -223,7 +224,8 @@ class MyGame(arcade.Window):
             self.ball_sprite.change_y *= -1
         for brick in green_brick_hit_list:
             brick.remove_from_sprite_lists()
-            self.score += 1
+            self.score += 4
+            arcade.play_sound(SOUND)
 
         self.diamonds_brick_list.update()
 
@@ -232,7 +234,8 @@ class MyGame(arcade.Window):
             self.ball_sprite.change_y *= -1
         for brick in diamonds_brick_hit_list:
             brick.remove_from_sprite_lists()
-            self.score += 1
+            self.score += 3
+            arcade.play_sound(SOUND)
 
         self.clubs_brick_list.update()
 
@@ -241,7 +244,8 @@ class MyGame(arcade.Window):
             self.ball_sprite.change_y *= -1
         for brick in clubs_brick_hit_list:
             brick.remove_from_sprite_lists()
-            self.score += 1
+            self.score += 2
+            arcade.play_sound(SOUND)
 
         self.blue_brick_list.update()
 
@@ -252,6 +256,7 @@ class MyGame(arcade.Window):
         for brick in blue_brick_hit_list:
             brick.remove_from_sprite_lists()
             self.score += 1
+            arcade.play_sound(SOUND)
 
 
         self.player_list.update()
