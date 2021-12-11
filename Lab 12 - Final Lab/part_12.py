@@ -10,10 +10,11 @@ PADDLE_SCALING = 0.4
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 700
 SCREEN_TITLE = "BRICK BREAKER 0.5"
-SOUND = arcade.load_sound("hit4.wav")
+SOUND = arcade.load_sound(":resources:sounds/hit4.wav")
+
 
 MOVEMENT_SPEED = 5
-BALL_SPEED = 5
+BALL_SPEED = 10
 
 
 
@@ -36,6 +37,7 @@ class MyGame(arcade.Window):
         # Sprite lists
         self.coin_list = None
         self.wall_list = None
+        self.top_wall_list = None
         self.player_list = None
         self.ball_list = None
         self.green_brick_list = None
@@ -71,6 +73,7 @@ class MyGame(arcade.Window):
         # Sprite lists
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList()
+        self.top_wall_list = arcade.SpriteList()
         self.ball_list = arcade.SpriteList()
         self.green_brick_list = arcade.SpriteList()
         self.diamonds_brick_list = arcade.SpriteList()
@@ -109,7 +112,7 @@ class MyGame(arcade.Window):
                                  WALL_SCALING)
             wall.center_x = x
             wall.center_y = 670
-            self.wall_list.append(wall)
+            self.top_wall_list.append(wall)
 
         # Create a column of boxes
         for y in range(30, 700, 64):
@@ -169,6 +172,7 @@ class MyGame(arcade.Window):
 
         # Draw all the sprites.
         self.wall_list.draw()
+        self.top_wall_list.draw()
         self.ball_list.draw()
         self.player_list.draw()
         self.green_brick_list.draw()
@@ -271,12 +275,17 @@ class MyGame(arcade.Window):
         wall_hit_list = arcade.check_for_collision_with_list(self.ball_sprite, self.wall_list)
         for wall in wall_hit_list:
             self.ball_sprite.change_x *= -1
+
+        top_wall_hit_list = arcade.check_for_collision_with_list(self.ball_sprite, self.top_wall_list)
+        for wall in top_wall_hit_list:
             self.ball_sprite.change_y *= -1
 
-        if self.ball_sprite.center_y < 10:
+        if self.ball_sprite.center_y < 0:
             self.ball_on_paddle = True
             self.ball_sprite.change_y = 0
             self.ball_sprite.change_x = 0
+
+        if self.ball_sprite.center_y <= 0:
             self.lives -= 1
 
 
