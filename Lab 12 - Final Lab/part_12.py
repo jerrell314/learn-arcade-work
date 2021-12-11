@@ -86,12 +86,7 @@ class MyGame(arcade.Window):
         self.player_sprite.center_x = SCREEN_WIDTH / 2
         self.player_sprite.center_y = SCREEN_HEIGHT - 600
         self.player_list.append(self.player_sprite)
-        self.score = 0
-        self.lives = 5
 
-        # Set the score and lives
-        self.score = 0
-        self.lives = 4
 
         # Image is from Brunswickbowling.com
         ball = arcade.Sprite(":resources:images/pinball/pool_cue_ball.png", BALL_SCALING)
@@ -182,6 +177,9 @@ class MyGame(arcade.Window):
 
         arcade.draw_text(f"Score: {self.score}", SCREEN_WIDTH - 990, SCREEN_HEIGHT - 40, arcade.color.WHITE, 14)
         arcade.draw_text(f"Lives: {self.lives}", SCREEN_WIDTH - 90, SCREEN_HEIGHT - 40, arcade.color.WHITE, 14)
+        if self.lives < 0:
+            game = "GAME OVER"
+            arcade.draw_text(game, 100, 300, arcade.color.WHITE, 100)
 
     def on_mouse_motion(self, x: float, y: float, dx: float, dy: float):
 
@@ -204,7 +202,7 @@ class MyGame(arcade.Window):
 
     def on_mouse_press(self, x, y, button, modifiers):
         self.ball_on_paddle = False
-        self.ball_sprite.change_y = 5
+        self.ball_sprite.change_y = BALL_SPEED
         self.ball_sprite.change_x = random.randrange(-3, 4)
 
 
@@ -220,7 +218,6 @@ class MyGame(arcade.Window):
         self.ball_list.update()
 
         self.green_brick_list.update()
-        self.ball_list.change_y = 0
 
 
         green_brick_hit_list = arcade.check_for_collision_with_list(self.ball_sprite, self.green_brick_list)
@@ -273,19 +270,19 @@ class MyGame(arcade.Window):
 
 
         wall_hit_list = arcade.check_for_collision_with_list(self.ball_sprite, self.wall_list)
-        for wall in wall_hit_list:
+        if len(wall_hit_list):
             self.ball_sprite.change_x *= -1
 
         top_wall_hit_list = arcade.check_for_collision_with_list(self.ball_sprite, self.top_wall_list)
-        for wall in top_wall_hit_list:
+        if len(top_wall_hit_list):
             self.ball_sprite.change_y *= -1
 
         if self.ball_sprite.center_y < 0:
             self.ball_on_paddle = True
             self.ball_sprite.change_y = 0
             self.ball_sprite.change_x = 0
-
-        if self.ball_sprite.center_y <= 0:
+            self.ball_sprite.center_x = self.player_sprite.center_x
+            self.ball_sprite.bottom = self.player_sprite.top
             self.lives -= 1
 
 
