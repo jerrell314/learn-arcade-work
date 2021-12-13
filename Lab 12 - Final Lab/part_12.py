@@ -266,6 +266,8 @@ class MyGame(arcade.Window):
         for player in player_hit_list:
             if self.ball_sprite.change_y < 0:
                 self.ball_sprite.change_y *= -1
+            if self.ball_sprite.change_x < 0:
+                self.ball_sprite.change_x *= -1
 
 
 
